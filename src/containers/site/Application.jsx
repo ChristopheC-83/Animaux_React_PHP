@@ -12,6 +12,8 @@ export default function Application() {
   const [animaux, setAnimaux] = useState("");
   const [filtreFamille, setFiltreFamille] = useState("");
   const [filtreContinent, setFiltreContinent] = useState("");
+  const [listeFamille, setListeFamille] = useState("");
+  const [listeContinent, setListeContinent] = useState("");
 
   function loadData() {
     const famille = filtreFamille ? filtreFamille : "-1";
@@ -27,16 +29,34 @@ export default function Application() {
 
   useEffect(() => {
     loadData();
-    console.log("chargement ouverture");
+    axios
+      .get(`http://localhost:8090/Gaston/SERVEURANIMAUX/front/continents`)
+      .then((reponse) => {
+        setListeContinent(Object.values(reponse.data));
+      });
+    axios
+      .get(`http://localhost:8090/Gaston/SERVEURANIMAUX/front/familles`)
+      .then((reponse) => {
+        setListeFamille(Object.values(reponse.data));
+      });
+    console.log("Re Render Page Animaux");
   }, [filtreFamille, filtreContinent]);
 
   function handleSelectionFamille(idFamille) {
-    setFiltreFamille(idFamille);
-    loadData();
+    if (idFamille === "-1") {
+      handleResetFiltreFamille();
+    } else {
+      setFiltreFamille(idFamille);
+    }
+    // loadData();
   }
   function handleSelectionContinent(idContinent) {
-    setFiltreContinent(idContinent);
-    loadData();
+    if (idContinent === "-1") {
+      handleResetFiltreContinent();
+    } else {
+      setFiltreContinent(idContinent);
+    }
+    // loadData();
   }
 
   function handleResetFiltreFamille() {
@@ -46,26 +66,57 @@ export default function Application() {
     setFiltreContinent("");
   }
 
+  
   return (
     <div>
       <TitreH1 bgColor="bg-success">Les Animaux du Parc</TitreH1>
-      {(filtreFamille || filtreContinent) && <span>Filtres :</span>}
-      {filtreFamille ? (
-        <Button typeBtn="btn-secondary" clic={handleResetFiltreFamille}>
-          {filtreFamille} &nbsp;
-          <FaWindowClose />
-        </Button>
-      ) : (
-        ""
-      )}
-      {filtreContinent ? (
-        <Button typeBtn="btn-secondary" clic={handleResetFiltreContinent}>
-          {filtreContinent} &nbsp;
-          <FaWindowClose />
-        </Button>
-      ) : (
-        ""
-      )}
+      <div className="container-fluid">
+        <span>Filtres :</span>
+        <select
+          onChange={(event) => handleSelectionFamille(event.target.value)}
+          value={filtreFamille || "-1"}
+        >
+          <option value="-1">Familles</option>
+          {listeFamille &&
+            listeFamille.map((famille) => {
+              return (
+                <option value={famille.famille_id} key={famille.famille_id}>
+                  {famille.famille_libelle}
+                </option>
+              );
+            })}
+        </select>
+        <select
+          onChange={(event) => handleSelectionContinent(event.target.value)}
+          value={filtreContinent || "-1"}
+        >
+          <option value="-1">Continents</option>
+          {listeContinent &&
+            listeContinent.map((continent) => {
+              return (
+                <option value={continent.continent_id} key={continent.continent_id}>
+                  {continent.continent_libelle}
+                </option>
+              );
+            })}
+        </select>
+        {filtreFamille ? (
+          <Button typeBtn="btn-secondary" clic={handleResetFiltreFamille}>
+            {filtreFamille} &nbsp;
+            <FaWindowClose />
+          </Button>
+        ) : (
+          ""
+        )}
+        {filtreContinent ? (
+          <Button typeBtn="btn-secondary" clic={handleResetFiltreContinent}>
+            {filtreContinent} &nbsp;
+            <FaWindowClose />
+          </Button>
+        ) : (
+          ""
+        )}
+      </div>
 
       <div className="container-fluid">
         <div className="row no-ugutters">
