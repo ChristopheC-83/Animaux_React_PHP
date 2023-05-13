@@ -1,0 +1,95 @@
+/*! minireset.css v0.0.6 | MIT License | github.com/jgthms/minireset.css */
+html, body, p, ol, ul, li, dl, dt, dd, blockquote, figure, fieldset, legend, textarea, pre, iframe, hr, h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+  font-weight: normal;
+}
+
+ul {
+  list-style: none;
+}
+
+button, input, select {
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+img, video {
+  height: auto;
+  max-width: 100%;
+}
+
+iframe {
+  border: 0;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+td, th {
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.MEPSite {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: calc(100vh - 120px);
+}
+
+.footerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  background-color: #4582EC;
+  color: white;
+  font-size: clamp(25px, 20px + 1.5vw, 50px);
+  gap: 3.5vw;
+  flex-wrap: wrap;
+}
+
+.iconesFooter {
+  transition: all 0.5s;
+  font-size: clamp(30px, 20px + 2vw, 60px);
+}
+.iconesFooter:hover {
+  color: violet;
+}
+
+.App {
+  width: 100%;
+  height: 100vh;
+  background-color: #333;
+  color: #f1f1f1;
+}
+
+.flexMid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 80%;
+  margin: 10px auto;
+}/*# sourceMappingURL=index.css.map */

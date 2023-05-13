@@ -1,0 +1,25 @@
+.MEPSite {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: calc(100vh - 120px);
+}
+
+.footerContainer{
+    @include flexMid;
+    height: 120px;
+    background-color: #4582EC;
+    color:white;
+    font-size: clamp(25px, calc(20px + 1.5vw), 50px);
+    gap: 3.5vw;
+    flex-wrap: wrap;
+}
+
+.iconesFooter{
+    transition: all 0.5s;
+    font-size: clamp(30px, calc(20px + 2vw), 60px);
+
+    &:hover{
+        color:violet
+    }
+}
