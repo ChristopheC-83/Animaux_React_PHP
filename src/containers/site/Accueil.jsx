@@ -1,16 +1,24 @@
-
+import { useEffect } from "react";
 import TitreH1 from "../../components/Titres/TitreH1";
 import banderole from "../../assets/images/banderole.png";
 import logo from "../../assets/images/logo.png";
 
 export default function Accueil() {
-
- 
+  useEffect(() => {
+    document.title = "Accueil";
+    const descriptionMeta = document.querySelector('meta[name="description"]');
+    descriptionMeta.setAttribute(
+      "content",
+      "page d'accueil du site d'un zoo virtuel"
+    )
+  }, []);
 
   return (
     <div>
       <img src={banderole} className="img-fluid" alt="banderole" />
-      <TitreH1 bgColor="bg-success">Visitez le parc d'animaux Zoo React !</TitreH1>
+      <TitreH1 bgColor="bg-success">
+        Visitez le parc d'animaux Zoo React !
+      </TitreH1>
       <div className="container">
         <br />
         <p>

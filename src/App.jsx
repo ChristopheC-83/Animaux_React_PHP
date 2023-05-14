@@ -1,7 +1,7 @@
 import "./Style/index.css";
 import Site from "./containers/site/Site";
 import Accueil from "./containers/site/Accueil";
-import Contact from "./containers/site/Contact";
+import Contact from "./containers/site/Contact/Contact";
 import Error from "./components/Error/Error";
 import { Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer/Footer";

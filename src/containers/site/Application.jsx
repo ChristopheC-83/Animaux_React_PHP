@@ -9,6 +9,16 @@ import Button from "../../components/UI/Navbar/Button";
 import { FaWindowClose } from "react-icons/fa";
 
 export default function Application() {
+
+  useEffect(()=>{
+  document.title = "Les Animaux";
+  const descriptionMeta = document.querySelector('meta[name="description"]');
+  descriptionMeta.setAttribute(
+    "content",
+    "La liste des animaux présents sur notre site"
+  )
+},[])
+
   const [animaux, setAnimaux] = useState("");
   const [filtreFamille, setFiltreFamille] = useState("");
   const [filtreContinent, setFiltreContinent] = useState("");
@@ -65,8 +75,24 @@ export default function Application() {
   function handleResetFiltreContinent() {
     setFiltreContinent("");
   }
+  let nomFamilleFiltre = "";
+  if (filtreFamille) {
+    const numCaseFamilleFiltre = listeFamille.findIndex((famille) => {
+      return famille.famille_id === parseInt(filtreFamille);
+      
+    });
+    nomFamilleFiltre = listeFamille[numCaseFamilleFiltre].famille_libelle;
+  }
 
-  
+  let nomContinentFiltre = "";
+  if (filtreContinent) {
+    const numCaseContinentFiltre = listeContinent.findIndex((continent) => {
+      return continent.continent_id === parseInt(filtreContinent);
+    });
+    nomContinentFiltre =
+      listeContinent[numCaseContinentFiltre].continent_libelle;
+  }
+
   return (
     <div>
       <TitreH1 bgColor="bg-success">Les Animaux du Parc</TitreH1>
@@ -94,7 +120,10 @@ export default function Application() {
           {listeContinent &&
             listeContinent.map((continent) => {
               return (
-                <option value={continent.continent_id} key={continent.continent_id}>
+                <option
+                  value={continent.continent_id}
+                  key={continent.continent_id}
+                >
                   {continent.continent_libelle}
                 </option>
               );
@@ -102,7 +131,7 @@ export default function Application() {
         </select>
         {filtreFamille ? (
           <Button typeBtn="btn-secondary" clic={handleResetFiltreFamille}>
-            {filtreFamille} &nbsp;
+            {nomFamilleFiltre} &nbsp;
             <FaWindowClose />
           </Button>
         ) : (
@@ -110,7 +139,7 @@ export default function Application() {
         )}
         {filtreContinent ? (
           <Button typeBtn="btn-secondary" clic={handleResetFiltreContinent}>
-            {filtreContinent} &nbsp;
+            {nomContinentFiltre} &nbsp;
             <FaWindowClose />
           </Button>
         ) : (
