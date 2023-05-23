@@ -25,12 +25,17 @@ export default function Application() {
   const [listeFamille, setListeFamille] = useState("");
   const [listeContinent, setListeContinent] = useState("");
 
+
+  // A changer pour la mise en ligne
+  const hostname="http://localhost:8090/Gaston/SERVEURANIMAUX/front/"
+
+
   function loadData() {
     const famille = filtreFamille ? filtreFamille : "-1";
     const continent = filtreContinent ? filtreContinent : "-1";
     axios
       .get(
-        `http://localhost:8090/Gaston/SERVEURANIMAUX/front/animaux/${famille}/${continent}`
+        `${hostname}animaux/${famille}/${continent}`
       )
       .then((reponse) => {
         setAnimaux(Object.values(reponse.data));
@@ -40,12 +45,12 @@ export default function Application() {
   useEffect(() => {
     loadData();
     axios
-      .get(`http://localhost:8090/Gaston/SERVEURANIMAUX/front/continents`)
+      .get(`${hostname}continents`)
       .then((reponse) => {
         setListeContinent(Object.values(reponse.data));
       });
     axios
-      .get(`http://localhost:8090/Gaston/SERVEURANIMAUX/front/familles`)
+      .get(`${hostname}familles`)
       .then((reponse) => {
         setListeFamille(Object.values(reponse.data));
       });
